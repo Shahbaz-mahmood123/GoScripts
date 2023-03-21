@@ -6,8 +6,11 @@ import (
 
 func GetComputeEnv() {
 	uri := "compute-envs?workspaceId=251085962711837"
-	response := httpClient(uri)
+	response, err := httpClient(uri, "GET", nil)
 
+	if err != nil {
+		panic(err)
+	}
 	fmt.Println(response)
 
 }
