@@ -7,25 +7,33 @@ import (
 	"net/http"
 )
 
+const (
+	GET  = "GET"
+	POST = "POST"
+	PUT  = "PUT"
+)
+
 func httpClient(uri string, method string, payload []byte) (string, error) {
+
 	url := "https://sm-k8s.dev-tower.net/api/" + uri
 	token := "eyJ0aWQiOiA2fS5kNTQ1MDBkNzc4MGM4OWQ0YmYzYWFjYTQ3NTIwZGExN2EyNTAyZDAw"
 
 	var req *http.Request
 	var err error
 
-	if method == "GET" {
+	if method == GET {
 		req, err = http.NewRequest(method, url, nil)
-	} else if method == "POST" {
+	} else if method == POST {
 		req, err = http.NewRequest(method, url, bytes.NewBuffer(payload))
 		req.Header.Set("Content-Type", "application/json")
 	} else {
-		return "", errors.New("Invalid HTTP method")
+		return "", errors.New("invalid HTTP method")
 	}
 
 	if err != nil {
 		return "", err
 	}
+	//fmt.Printf("Sending %s request to %s with payload:\n%s\n", method, uri, string(payload))
 
 	req.Header.Set("Authorization", "Bearer "+token)
 
