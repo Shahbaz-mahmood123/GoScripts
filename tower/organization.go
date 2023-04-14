@@ -24,6 +24,21 @@ type OrgStruct struct {
 	} `json:"organization"`
 }
 
+type ReponseOrg struct {
+	Organization struct {
+		OrgID       int64  `json:"orgId"`
+		Name        string `json:"name"`
+		FullName    string `json:"fullName"`
+		Description any    `json:"description"`
+		Location    any    `json:"location"`
+		Website     any    `json:"website"`
+		LogoID      any    `json:"logoId"`
+		LogoURL     any    `json:"logoUrl"`
+		MemberID    any    `json:"memberId"`
+		MemberRole  any    `json:"memberRole"`
+	} `json:"organization"`
+}
+
 func CreateOrganization(uri string, name string, fullName string) (string, error) {
 
 	createOrgRequest := OrgStruct{

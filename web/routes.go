@@ -9,7 +9,7 @@ import (
 func Routes() {
 	router := gin.Default()
 	createOrgRoute(router)
-
+	createWorkspaceRoute(router)
 	router.GET("/orgs", func(c *gin.Context) {
 		c.String(http.StatusOK, "hello world")
 	})
