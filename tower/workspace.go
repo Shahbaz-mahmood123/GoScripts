@@ -2,6 +2,7 @@ package tower
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 )
@@ -11,7 +12,7 @@ func GetWorkspace() {
 }
 
 type Workspace struct {
-	WorkspaceData struct {
+	Workspace struct {
 		Name       string `json:"name"`
 		FullName   string `json:"fullName"`
 		Visibility string `json:"visibility"`
@@ -24,7 +25,7 @@ func CreateWorkspace(name string, fullName string, visibility string) (string, e
 	uri := "orgs/" + lastCreatedOrg + "/workspaces"
 
 	createWorkspaceRequest := Workspace{
-		WorkspaceData: struct {
+		Workspace: struct {
 			Name       string `json:"name"`
 			FullName   string `json:"fullName"`
 			Visibility string `json:"visibility"`
@@ -34,7 +35,7 @@ func CreateWorkspace(name string, fullName string, visibility string) (string, e
 			Visibility: visibility,
 		},
 	}
-
+	fmt.Println(createWorkspaceRequest)
 	payload, err := json.Marshal(createWorkspaceRequest)
 	if err != nil {
 		return "", err

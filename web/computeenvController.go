@@ -8,11 +8,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func createOrgRoute(router *gin.Engine) {
-	router.POST("/orgs", (createOrganizationHandler))
+func createComputeEnvRoute(router *gin.Engine) {
+	router.POST("/compute", (createComputeEnvHandler))
 }
 
-func createOrganizationHandler(c *gin.Context) {
+func createComputeEnvHandler(c *gin.Context) {
 
 	// bodyBytes, err := ioutil.ReadAll(c.Request.Body)
 	// if err != nil {
@@ -21,12 +21,12 @@ func createOrganizationHandler(c *gin.Context) {
 	// }
 	// // Restore the request body data
 	// c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
-	// // Print the payload
+	// // Print the payloadß
 	// fmt.Prin(string(bodyBytes))tln
 	//Anything below this is not the print code
-	var org tower.OrgStruct
+	var compute tower.OrgStruct
 
-	if err := c.BindJSON(&org); err != nil {
+	if err := c.BindJSON(&compute); err != nil {
 		fmt.Printf("Error binding JSON: %s\n", err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
 		return
@@ -34,8 +34,8 @@ func createOrganizationHandler(c *gin.Context) {
 
 	//fmt.Printf("Received org: %+v\n", org)
 
-	uri := "orgs"
-	resp, err := tower.CreateOrganization(uri, org.Organization.Name, org.Organization.FullName)
+	uri := "compute-envs?workspaceId=251085962711837"
+	resp, err := tower.CreateComputeEnv(uri)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error creating organization"})
