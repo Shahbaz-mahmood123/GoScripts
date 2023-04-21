@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 const (
@@ -15,8 +16,9 @@ const (
 
 func httpClient(uri string, method string, payload []byte) (string, error) {
 
-	url := "https://sm-k8s.dev-tower.net/api/" + uri
-	token := "eyJ0aWQiOiA2fS5kNTQ1MDBkNzc4MGM4OWQ0YmYzYWFjYTQ3NTIwZGExN2EyNTAyZDAw"
+	url := os.Getenv("TOWERURL") + uri
+
+	token := os.Getenv("TOWERTOKEN")
 
 	var req *http.Request
 	var err error
